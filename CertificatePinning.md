@@ -136,6 +136,26 @@ In this example, the `ValidateServerCertificate` method compares the server's pu
 
 Please note that this is a basic example, and in a real-world scenario, you may need to handle exceptions, timeouts, and other edge cases more robustly. Also, ensure that you handle the certificate securely in your application to prevent unauthorized access.
 
+## SSL inspection with SSL pinning
 
+SSL inspection and SSL pinning serve different purposes and are generally not used together. Let me explain both concepts to clarify why they are usually not compatible:
+
+### SSL Inspection:
+SSL inspection (also known as SSL interception or SSL deep packet inspection) is a security technique used by organizations to monitor, intercept, and analyze encrypted SSL/TLS traffic passing through their networks. It involves decrypting SSL/TLS traffic at a network security device (like a firewall or proxy server), inspecting the decrypted content for malicious activity, and then re-encrypting the traffic before it reaches its destination.
+
+### SSL Pinning:
+SSL pinning, as described in the previous responses, is a security mechanism implemented by applications to ensure that they only communicate with a specific, predefined SSL certificate or public key. This mechanism is used to prevent man-in-the-middle attacks by verifying the server's SSL certificate during the SSL/TLS handshake process.
+
+### Why They Are Usually Not Compatible:
+SSL pinning relies on the trust established with a specific SSL certificate or public key. When SSL inspection is performed, the original SSL certificate presented by the server is replaced with a certificate issued by the inspecting device. This new certificate is trusted by the client applications within the organization's network. However, this replacement breaks SSL pinning because the application no longer sees the expected SSL certificate or public key from the server.
+
+In other words, SSL pinning works based on the specific certificate or public key, and if that is replaced during SSL inspection, the application's pinning logic will fail.
+
+### Exceptions and Considerations:
+1. **Exceptions for Managed Devices:** In some enterprise scenarios, managed devices (such as corporate-owned smartphones) might have SSL inspection certificates pre-installed, allowing SSL inspection to work with specific applications.
+
+2. **Application-Specific Implementations:** Some applications might have custom implementations allowing them to work with SSL inspection. However, this often requires coordination between the SSL inspection setup and the application's developers.
+
+In general, when implementing SSL inspection, it's essential to consider the implications on applications that rely on SSL pinning. Organizations must carefully evaluate their security needs and consider alternative security mechanisms if SSL inspection and SSL pinning are both necessary for their specific use case.
 
 
