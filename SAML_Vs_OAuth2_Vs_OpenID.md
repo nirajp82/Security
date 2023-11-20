@@ -18,7 +18,52 @@ Imagine you work for a large company that uses multiple applications for differe
 
 **Diagram:**
 
-[Image of SAML authentication flow diagram]
+![image](https://github.com/nirajp82/Security/assets/61636643/3980d31a-a68d-4c33-9a0a-48c3374fe5c2)
+
+Reference: https://www.elastic.co/blog/how-to-enable-saml-authentication-in-kibana-and-elasticsearch
+
+
+The authentication flow typically initiates when a user clicks on a login button or accesses a secured part of a web application configured for SAML authentication. The following steps outline the process:
+
+1. **SAML Authentication Request:**
+   - User initiates authentication by clicking on a login button or accessing a secured area.
+   - Web application generates a SAML Authentication Request, compresses and Base64 encodes it.
+   - User's browser is redirected to the Identity Provider with the SAML Authentication Request as an HTTP GET parameter.
+
+2. **Identity Provider Authentication:**
+   - Identity Provider verifies the request's origin from a trusted Service Provider.
+   - User is prompted to authenticate, typically through a login form.
+   - Upon successful authentication, the Identity Provider creates a SAML Response message containing a SAML Assertion.
+
+3. **SAML Response Handling:**
+   - Identity Provider instructs the user's browser to make an HTTP POST request to the Assertion Consumer Service URL.
+   - SAML Response is Base64 and URL encoded in the body of the request.
+
+4. **Service Provider Processing:**
+   - Service Provider receives the SAML Response.
+   - Authenticity and integrity of the response are verified.
+   - If valid, the Service Provider "consumes" the response, extracting user authentication details.
+
+5. **Metadata Exchange:**
+   - Before message exchange, entities exchange SAML Metadata, an XML document.
+   - Important metadata components include EntityID, public keys for encryption and signing, URLs for SAML message exchange, and organizational information.
+
+6. **Security Measures:**
+   - XML Digital Signatures, XML encryption, and public key cryptography are employed to ensure integrity, authenticity, and confidentiality of SAML messages.
+   - Identity Provider signs SAML responses using its private key, and Service Provider verifies using the public key from exchanged metadata.
+
+**FAQ:**
+- *How does the Identity Provider verify the Authentication Request's source? and How can the Service Provider verify SAML response authenticity?*
+
+  Well, before any messages can be exchanged between an Identity Provider and a Service Provider, one needs to know the configuration details and capabilities of the other. This configuration and the capabilities are encoded in an XML document, that is the SAML Metadata of the SAML entity. The metadata document contains a lot of information, but the most important parts are:
+
+- A unique ID of the SAML entity, called EntityID
+- A public key that other SAML entities can use to encrypt messages sent to this Entity
+- A public key that corresponds to the private key that this entity uses to digitally sign messages sent to other entities.
+- URLs to which other entities can send SAML messages and the bindings (connection details and protocol specifics) it supports.
+- Information about the Organization operating this entity and the technical and support contact details.
+
+Once the entities have mutually exchanged metadata in a secure manner, XML Digital Signatures, XML encryption, and public key cryptography are used to safeguard the integrity, authenticity, and the confidentiality of the SAML messages. For instance, an Identity Provider uses the private key that corresponds to the public key it has published in its metadata to digitally sign the SAML Response it sends to a Service Provider. The Service Provider can then use that public key in the published metadata to verify the signature and thus the authenticity and the integrity of the response.
 
 **OAuth 2.0 (Open Authorization)**
 
@@ -38,7 +83,17 @@ Imagine you want to use a third-party app to access your photos stored on Google
 
 **Diagram:**
 
-[Image of OAuth2 authorization flow diagram]
+![image](https://github.com/nirajp82/Security/assets/61636643/35978302-2044-49a1-bcdd-c8bc22955f22)
+
+![image](https://github.com/nirajp82/Security/assets/61636643/02acb7b2-5273-474d-a6e4-d33dd2551093)
+
+**OAuth 2.0 Terms**
+* Resource Server – The server hosting the protected resource.
+* Resource Owner – An entity capable of granting access to a protected resource.
+* Client – An application making protected resource requests on behalf of the resource owner. It can be a server-based, mobile or a desktop application.
+* Authorization Server – The server issuing access tokens to the clients after successfully authenticating the resource owner and obtaining authorization.
+
+Reference: https://docs.oracle.com/cd/E82085_01/160027/JOS%20Implementation%20Guide/Output/oauth.htm
 
 **OpenID Connect (OIDC)**
 
@@ -58,7 +113,6 @@ Imagine you want to sign in to a new website using your Google account. With OID
 
 **Diagram:**
 
-[Image of OIDC authorization flow diagram]
 
 **Summary Table:**
 
