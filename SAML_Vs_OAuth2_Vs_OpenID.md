@@ -97,7 +97,19 @@ Reference: https://docs.oracle.com/cd/E82085_01/160027/JOS%20Implementation%20Gu
 
 **OpenID Connect (OIDC)**
 
-OpenID Connect (OIDC) is an authentication layer built on top of OAuth 2.0 that adds an identity layer, making it easier for applications to verify a user's identity and profile information. It extends OAuth 2.0 by defining additional messages and endpoints that provide more detailed information about the user, such as their name, email address, and profile picture.
+OpenID Connect (OIDC) is an authentication layer built on top of OAuth 2.0 that adds an identity layer, making it easier for applications to verify a user's identity and profile information. It extends OAuth 2.0 by defining additional messages and endpoints that provide more detailed information about the user, such as their name, email address, and profile picture.  OIDC also standardizes areas that OAuth 2.0 leaves up to choice, such as scopes, endpoint discovery, and the dynamic registration of clients.
+
+# OIDC and OAuth 2.0 Terminology
+
+Although OIDC extends OAuth 2.0, the OIDC specification uses slightly different terms for the roles in the flows:
+
+- **OpenID provider:** The authorization server that issues the ID token. 
+- **End user:** The end user's information that is contained in the ID token.
+- **Relying party:** The client application that requests the ID token from OpenID provider.
+- **ID token:** The token issued by the OpenID provider that contains information about the end user in the form of claims.
+- **Claim:** The claim is a piece of information about the end user.
+
+The high-level flow looks the same for both OpenID Connect and regular OAuth 2.0 flows. The primary difference is that an OpenID Connect flow results in an ID token, in addition to any access or refresh tokens.
 
 **Key Features:**
 
@@ -112,7 +124,8 @@ OpenID Connect (OIDC) is an authentication layer built on top of OAuth 2.0 that 
 Imagine you want to sign in to a new website using your Google account. With OIDC, you can log in using your Google credentials and allow the website to access your basic profile information, such as your name and email address.
 
 **Diagram:**
-
+![image](https://github.com/nirajp82/Security/assets/61636643/fd6fe782-8706-4a5a-89f3-2724af2f555f)
+reference: https://backstage.forgerock.com/docs/am/7/oidc1-guide/images/oidc-authz.svg
 
 **Summary Table:**
 
