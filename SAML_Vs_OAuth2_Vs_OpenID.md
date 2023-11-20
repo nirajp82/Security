@@ -18,7 +18,7 @@ Imagine you work for a large company that uses multiple applications for differe
 
 **Diagram:**
 
-![image](https://github.com/nirajp82/Security/assets/61636643/3980d31a-a68d-4c33-9a0a-48c3374fe5c2)
+![image](https://github.com/nirajp82/Security/assets/61636643/9ea79950-a50f-4a7a-b571-aeb9cc035709)
 
 Reference: https://www.elastic.co/blog/how-to-enable-saml-authentication-in-kibana-and-elasticsearch
 
